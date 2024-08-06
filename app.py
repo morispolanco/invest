@@ -2,11 +2,11 @@ import streamlit as st
 import requests
 import json
 
-# Streamlit app title
-st.title("Investigator Agent")
+# Título de la aplicación de Streamlit
+st.title("Agente Investigador")
 
-# Function to call the Together API
-def call_together_api(prompt):
+# Función para llamar a la API de Together
+def llamar_api_together(prompt):
     url = "https://api.together.xyz/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {st.secrets['TOGETHER_API_KEY']}",
@@ -20,8 +20,8 @@ def call_together_api(prompt):
         "top_p": 0.7,
         "top_k": 50,
         "repetition_penalty": 1,
-        "stop": ["<|eot_id|>"],
-        "stream": False  # Changed to False for simplicity
+        "stop": ["\""],
+        "stream": False  # Cambiado a False para simplificar
     }
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
@@ -29,21 +29,21 @@ def call_together_api(prompt):
     else:
         return f"Error: {response.status_code} - {response.text}"
 
-# User input
-user_query = st.text_input("Enter your research question:")
+# Entrada del usuario
+consulta_usuario = st.text_input("Ingrese su pregunta de investigación:")
 
-if user_query:
-    if st.button("Investigate"):
-        with st.spinner("Investigating..."):
-            result = call_together_api(f"Act as an investigator and research the following question: {user_query}")
-        st.write("Investigation Results:")
-        st.write(result)
+if consulta_usuario:
+    if st.button("Investigar"):
+        with st.spinner("Investigando..."):
+            resultado = llamar_api_together(f"Actúa como un investigador y investiga la siguiente pregunta: {consulta_usuario}")
+        st.write("Resultados de la investigación:")
+        st.write(resultado)
 
-# Instructions for setting up the secret
-st.sidebar.header("Setup Instructions")
+# Instrucciones para configurar el secreto
+st.sidebar.header("Instrucciones de configuración")
 st.sidebar.info(
-    "To use this app, you need to set up your Together API key in Streamlit's secrets. "
-    "Create a file named `.streamlit/secrets.toml` in your app's root directory and add the following line:\n\n"
-    "TOGETHER_API_KEY = 'your_api_key_here'\n\n"
-    "Replace 'your_api_key_here' with your actual Together API key."
+    "Para utilizar esta aplicación, necesita configurar su clave de API de Together en los secretos de Streamlit. "
+    "Cree un archivo llamado `.streamlit/secrets.toml` en el directorio raíz de su aplicación y agregue la siguiente línea:\n\n"
+    "TOGETHER_API_KEY = 'su_clave_api_aquí'\n\n"
+    "Reemplace 'su_clave_api_aquí' con su clave de API de Together real."
 )
