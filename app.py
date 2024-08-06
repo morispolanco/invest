@@ -20,7 +20,7 @@ def call_together_api(prompt):
         "top_p": 0.7,
         "top_k": 50,
         "repetition_penalty": 1,
-        "stop": ["<|eot_id|>"],
+        "stop": ["\""],
         "stream": False  # Changed to False for simplicity
     }
     response = requests.post(url, headers=headers, json=data)
@@ -28,6 +28,9 @@ def call_together_api(prompt):
         return response.json()['choices'][0]['message']['content']
     else:
         return f"Error: {response.status_code} - {response.text}"
+
+# Historial de consultas
+historial_consultas = []
 
 # User input
 user_query = st.text_input("Enter your research question:")
@@ -38,6 +41,14 @@ if user_query:
             result = call_together_api(f"Act as an investigator and research the following question: {user_query}")
         st.write("Investigation Results:")
         st.write(result)
+        historial_consultas.append({"consulta": user_query, "resultado": result})
+
+# Mostrar historial de consultas
+st.header("Historial de consultas")
+for i, consulta in enumerate(historial_consultas):
+    st.write(f"Consulta {i+1}: {consulta['consulta']}")
+    st.write(f"Resultado: {consulta['resultado']}")
+    st.write("---")
 
 # Instructions for setting up the secret
 st.sidebar.header("Setup Instructions")
