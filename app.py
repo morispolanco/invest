@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Título de la aplicación en Streamlit
-st.title("Agente Investigador de Legislación Guatemalteca")
+st.title("Agente Investigador")
 
 # Función para llamar a la API de Together
 def llamar_api_together(prompt):
@@ -30,18 +30,19 @@ def llamar_api_together(prompt):
         return f"Error: {response.status_code} - {response.text}"
 
 # Entrada del usuario
-consulta_usuario = st.text_input("Ingrese su pregunta sobre la legislación guatemalteca:")
+consulta_usuario = st.text_input("Ingrese su pregunta de investigación:")
 
 if consulta_usuario and st.button("Investigar"):
     with st.spinner("Investigando..."):
-        resultado = llamar_api_together(f"Actúa como un investigador y realiza una investigación sobre la legislación guatemalteca en relación con la siguiente pregunta: {consulta_usuario}")
+        resultado = llamar_api_together(f"Actúa como un investigador y realiza una investigación sobre la siguiente pregunta: {consulta_usuario}")
         st.write("Resultados de la investigación:")
         st.write(resultado)
 
-# Sección "Acerca de"
-st.sidebar.header("Acerca de")
+# Instrucciones para configurar el secreto
+st.sidebar.header("Instrucciones de Configuración")
 st.sidebar.info(
-    "Esta aplicación está diseñada para ayudarle a investigar la legislación guatemalteca. "
-    "Utiliza Llama 3.1-405B para generar respuestas basadas en preguntas específicas sobre leyes, regulaciones y otros aspectos legales en Guatemala.\n\n"
-    
+    "Para usar esta aplicación, necesita configurar su clave API de Together en los secretos de Streamlit. "
+    "Cree un archivo llamado `.streamlit/secrets.toml` en el directorio raíz de su aplicación y agregue la siguiente línea:\n\n"
+    "TOGETHER_API_KEY = 'su_clave_api_aquí'\n\n"
+    "Reemplace 'su_clave_api_aquí' con su clave API de Together."
 )
