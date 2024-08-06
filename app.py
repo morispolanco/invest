@@ -41,8 +41,8 @@ if consulta_usuario:
             st.write(resultado)
 
 # Instrucciones para configurar el secreto
-st.sidebar.header("Instrucciones de configuración")
+st.sidebar.header("Acerca de")
 st.sidebar.info(
-    "Esta aplicación utiliza la API de Together para investigar y responder a preguntas de investigación. "
+    "Esta aplicación utiliza Meta-Llama-3.1-405B-Instruct-Turbo para investigar y responder a preguntas de investigación. "
     "Simula el comportamiento de un agente investigador para proporcionar respuestas detalladas y precisas."
 )
