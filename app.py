@@ -20,7 +20,7 @@ def call_together_api(prompt):
         "top_p": 0.7,
         "top_k": 50,
         "repetition_penalty": 1,
-        "stop": ["<|eot_id|>"],
+        "stop": ["\""],
         "stream": False  # Changed to False for simplicity
     }
     response = requests.post(url, headers=headers, json=data)
@@ -28,6 +28,9 @@ def call_together_api(prompt):
         return response.json()['choices'][0]['message']['content']
     else:
         return f"Error: {response.status_code} - {response.text}"
+
+# Historial de consultas
+historial_consultas = []
 
 # User input
 user_query = st.text_input("Enter your research question:")
@@ -38,12 +41,11 @@ if user_query:
             result = call_together_api(f"Act as an investigator and research the following question: {user_query}")
         st.write("Investigation Results:")
         st.write(result)
+        historial_consultas.append({"consulta": user_query, "resultado": result})
 
-# Instructions for setting up the secret
-st.sidebar.header("Setup Instructions")
-st.sidebar.info(
-    "To use this app, you need to set up your Together API key in Streamlit's secrets. "
-    "Create a file named `.streamlit/secrets.toml` in your app's root directory and add the following line:\n\n"
-    "TOGETHER_API_KEY = 'your_api_key_here'\n\n"
-    "Replace 'your_api_key_here' with your actual Together API key."
-)
+# Mostrar historial de consultas
+st.header("Historial de consultas")
+for i, consulta in enumerate(historial_consultas):
+    st.write(f"Consulta {i+1}: {consulta['consulta']}")
+    st.write(f"Resultado: {consulta['resultado']}")
+    st.write("---")
