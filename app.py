@@ -15,13 +15,13 @@ def llamar_api_together(prompt):
     data = {
         "model": "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 2000,  # Aumentamos el límite de tokens a 2000
+        "max_tokens": 2000,
         "temperature": 0,
         "top_p": 0.7,
         "top_k": 50,
         "repetition_penalty": 1,
         "stop": ["\""],
-        "stream": True  # Activamos la opción de streaming
+        "stream": True
     }
     
     response = requests.post(url, headers=headers, json=data, stream=True)
@@ -29,7 +29,11 @@ def llamar_api_together(prompt):
         resultado = ""
         for chunk in response.iter_content(1024):
             resultado += chunk.decode("utf-8")
-        return json.loads(resultado)['choices'][0]['message']['content']
+        try:
+            json_data = json.loads(resultado)
+            return json_data['choices'][0]['message']['content']
+        except json.JSONDecodeError:
+            return "Error: unable to parse JSON response"
     else:
         return f"Error: {response.status_code} - {response.text}"
 
