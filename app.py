@@ -29,9 +29,6 @@ def call_together_api(prompt):
     else:
         return f"Error: {response.status_code} - {response.text}"
 
-# Historial de consultas
-historial_consultas = []
-
 # User input
 user_query = st.text_input("Enter your research question:")
 
@@ -41,11 +38,3 @@ if user_query:
             result = call_together_api(f"Act as an investigator and research the following question: {user_query}")
         st.write("Investigation Results:")
         st.write(result)
-        historial_consultas.append({"consulta": user_query, "resultado": result})
-
-# Mostrar historial de consultas
-st.header("Historial de consultas")
-for i, consulta in enumerate(historial_consultas):
-    st.write(f"Consulta {i+1}: {consulta['consulta']}")
-    st.write(f"Resultado: {consulta['resultado']}")
-    st.write("---")
