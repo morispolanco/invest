@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import json
 
 # Streamlit app title
 st.title("Investigator Agent")
@@ -19,7 +20,7 @@ def call_together_api(prompt):
         "top_p": 0.7,
         "top_k": 50,
         "repetition_penalty": 1,
-        "stop": [""],
+        "stop": ["<|eot_id|>"],
         "stream": False  # Changed to False for simplicity
     }
     
@@ -32,17 +33,18 @@ def call_together_api(prompt):
 # User input
 user_query = st.text_input("Enter your research question:")
 
-if user_query and st.button("Investigate"):
-    with st.spinner("Investigating..."):
-        result = call_together_api(f"Act as an investigator and research the following question: {user_query}")
-        st.write("Investigation Results:")
-        st.write(result)
+if user_query:
+    if st.button("Investigate"):
+        with st.spinner("Investigating..."):
+            result = call_together_api(f"Act as an investigator and research the following question: {user_query}")
+            st.write("Investigation Results:")
+            st.write(result)
 
 # Instructions for setting up the secret
 st.sidebar.header("Setup Instructions")
 st.sidebar.info(
     "To use this app, you need to set up your Together API key in Streamlit's secrets. "
-    "Create a file named `.streamlit/secrets.toml` in your app's root directory and add the following line:\n\n"
+    "Create a file named .streamlit/secrets.toml in your app's root directory and add the following line:\n\n"
     "TOGETHER_API_KEY = 'your_api_key_here'\n\n"
     "Replace 'your_api_key_here' with your actual Together API key."
 )
