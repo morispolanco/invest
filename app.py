@@ -21,12 +21,15 @@ def llamar_api_together(prompt):
         "top_k": 50,
         "repetition_penalty": 1,
         "stop": ["\""],
-        "stream": False  # Cambiado a False para simplificar
+        "stream": True  # Activamos la opción de streaming
     }
     
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=data, stream=True)
     if response.status_code == 200:
-        return response.json()['choices'][0]['message']['content']
+        resultado = ""
+        for chunk in response.iter_content(1024):
+            resultado += chunk.decode("utf-8")
+        return json.loads(resultado)['choices'][0]['message']['content']
     else:
         return f"Error: {response.status_code} - {response.text}"
 
