@@ -15,8 +15,8 @@ def llamar_api_together(prompt):
     data = {
         "model": "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 1912,
-        "temperature": 0.5,
+        "max_tokens": 2000,  # Aumentamos el límite de tokens a 2000
+        "temperature": 0,
         "top_p": 0.7,
         "top_k": 50,
         "repetition_penalty": 1,
@@ -36,13 +36,13 @@ consulta_usuario = st.text_input("Ingrese su pregunta de investigación:")
 if consulta_usuario:
     if st.button("Investigar"):
         with st.spinner("Investigando..."):
-            resultado = llamar_api_together(f"Actúa como un investigador y investiga la siguiente pregunta: {consulta_usuario}. ")
+            resultado = llamar_api_together(f"Actúa como un investigador y investiga la siguiente pregunta: {consulta_usuario}")
             st.write("Resultados de la investigación:")
             st.write(resultado)
 
-# Instrucciones para configurar el secreto
-st.sidebar.header("Acerca de")
+# Barra lateral con información sobre la app
+st.sidebar.header("Acerca de esta aplicación")
 st.sidebar.info(
-    "Esta aplicación utiliza Meta-Llama-3.1-405B-Instruct-Turbo para investigar y responder a preguntas de investigación. "
+    "Esta aplicación utiliza la API de Together para investigar y responder a preguntas de investigación. "
     "Simula el comportamiento de un agente investigador para proporcionar respuestas detalladas y precisas."
 )
