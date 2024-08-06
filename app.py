@@ -15,7 +15,7 @@ def call_together_api(prompt):
     data = {
         "model": "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 1912,
+        "max_tokens": 1212,
         "temperature": 0,
         "top_p": 0.7,
         "top_k": 50,
