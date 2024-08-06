@@ -43,8 +43,6 @@ if consulta_usuario:
 # Instrucciones para configurar el secreto
 st.sidebar.header("Instrucciones de configuración")
 st.sidebar.info(
-    "Para utilizar esta aplicación, necesita configurar su clave de API de Together en los secretos de Streamlit. "
-    "Cree un archivo llamado .streamlit/secrets.toml en el directorio raíz de su aplicación y agregue la siguiente línea:\n\n"
-    "TOGETHER_API_KEY = 'su_clave_api_aquí'\n\n"
-    "Reemplace 'su_clave_api_aquí' con su clave de API de Together real."
+    "Esta aplicación utiliza la API de Together para investigar y responder a preguntas de investigación. "
+    "Simula el comportamiento de un agente investigador para proporcionar respuestas detalladas y precisas."
 )
