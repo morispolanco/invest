@@ -39,11 +39,9 @@ if user_query:
         st.write("Investigation Results:")
         st.write(result)
 
-# Instructions for setting up the secret
-st.sidebar.header("Setup Instructions")
+# Instructions for use
+st.sidebar.header("Instructions for Use")
 st.sidebar.info(
-    "To use this app, you need to set up your Together API key in Streamlit's secrets. "
-    "Create a file named `.streamlit/secrets.toml` in your app's root directory and add the following line:\n\n"
-    "TOGETHER_API_KEY = 'your_api_key_here'\n\n"
-    "Replace 'your_api_key_here' with your actual Together API key."
+    "To use this application, simply enter your research question in the text field and press the 'Investigate' button. "
+    "The application will use the Together API to investigate and provide relevant results."
 )
