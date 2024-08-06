@@ -15,7 +15,7 @@ def llamar_api_together(prompt):
     data = {
         "model": "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 1912,
+        "max_tokens": 912,
         "temperature": 0,
         "top_p": 0.7,
         "top_k": 50,
@@ -36,7 +36,7 @@ consulta_usuario = st.text_input("Ingrese su pregunta de investigación:")
 if consulta_usuario:
     if st.button("Investigar"):
         with st.spinner("Investigando..."):
-            resultado = llamar_api_together(f"Actúa como un investigador y investiga la siguiente pregunta: {consulta_usuario}. Tu respuesta debe ser exhaustiva y bien fudamentada.")
+            resultado = llamar_api_together(f"Actúa como un investigador y investiga la siguiente pregunta: {consulta_usuario}. Tu respuesta debe ser exhaustiva, completa y bien fudamentada.")
             st.write("Resultados de la investigación:")
             st.write(resultado)
 
