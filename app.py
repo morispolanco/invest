@@ -29,6 +29,7 @@ def llamar_api_together(prompt):
         resultado = ""
         for chunk in response.iter_content(1024):
             resultado += chunk.decode("utf-8")
+        print("Resultado:", resultado)  # Imprimir el resultado para depuración
         try:
             json_data = json.loads(resultado)
             return json_data['choices'][0]['message']['content']
