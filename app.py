@@ -36,7 +36,7 @@ consulta_usuario = st.text_input("Ingrese su pregunta de investigación:")
 if consulta_usuario:
     if st.button("Investigar"):
         with st.spinner("Investigando..."):
-            resultado = llamar_api_together(f"Actúa como un investigador y investiga la siguiente pregunta: {consulta_usuario}. Tu respuesta debe ser exhaustiva, completa y bien fudamentada.")
+            resultado = llamar_api_together(f"Actúa como un investigador y investiga la siguiente pregunta: {consulta_usuario}. ")
             st.write("Resultados de la investigación:")
             st.write(resultado)
 
