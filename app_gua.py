@@ -11,6 +11,9 @@ def call_together_api(prompt):
     if "Guatemala" not in prompt and "legislación guatemalteca" not in prompt:
         prompt += " en el contexto de la legislación guatemalteca"
     
+    # Agregar URL del sitio web de Guatemala Justia
+    prompt += " en el sitio web de Guatemala Justia (https://guatemala.justia.com)"
+    
     url = "https://api.together.xyz/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {st.secrets['TOGETHER_API_KEY']}",
